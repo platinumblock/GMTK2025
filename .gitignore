@@ -24,3 +24,5 @@ MemoryCaptures/
 *.aab
 *.xcworkspace/
 *.xcodeproj/
+*~
+*.meta
