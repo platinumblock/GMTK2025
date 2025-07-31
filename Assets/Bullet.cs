@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D c) {
         if (c.tag == "Enemy") {
-            c.gameObject.GetComponent<Enemy>().damage(this.damage);
+            c.gameObject.GetComponent<Enemy>().TakeDamage(this.damage);
             Destroy(this.gameObject);
         }
         else if (c.tag == "PastPlayer") {
@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void setDamage(float damage) {
+    public void SetDamage(float damage) {
         this.damage = damage;
     }
 }

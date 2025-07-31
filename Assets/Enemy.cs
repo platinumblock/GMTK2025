@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    public void damage(float damage) {
+    public void TakeDamage(float damage) {
 
     }
 }
