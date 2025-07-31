@@ -2,21 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UI;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Player : MonoBehaviour
 {
-    float speed = 2;
+    float speed = 4;
     float xVelocity = 0;
     float yVelocity = 0;
     string[] moveKeys = { "a", "w", "s", "d" };
     bool[] moving = {false, false, false, false};
+    Rigidbody2D rb;
 
     int health = 100;
 
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
     void Update()
     {
         Movement();
         Rotation();
+    }
+
+    private void FixedUpdate()
+    {
+        Movement2();
     }
 
     void Movement()
@@ -57,8 +68,11 @@ public class Player : MonoBehaviour
         {
             yVelocity = 0;
         }
+    }
 
-        transform.position += new Vector3(xVelocity, yVelocity, 0) * Time.deltaTime;
+    void Movement2()
+    {
+        rb.MovePosition(rb.position + new Vector2(xVelocity, yVelocity) * Time.fixedDeltaTime);
     }
 
     void Rotation()
