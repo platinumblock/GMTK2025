@@ -14,8 +14,9 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
 
     float shootingDelay = 0.5f;
-    float nextShootTime = 0.0f;
-    GameObject bullet;
+    bool shooting = false;
+    bool shotCooldown = false;
+    public GameObject bullet;
 
     int health = 100;
 
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         Movement2();
+        Shoot2();
     }
 
     void Movement()
@@ -85,20 +87,37 @@ public class Player : MonoBehaviour
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
         Vector3 direction = mousePos - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
 
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
-
     void Shoot()
     {
-        if (Input.GetButton("Fire1") && Time.time >= this.nextShootTime) {
-            GameObject bulletObj = Instantiate(this.bullet,
-                                               this.transform.position,
-                                               this.transform.rotation);
-            bulletObj.GetComponent<Bullet>().SetShooterTag(this.gameObject.tag);
-            this.nextShootTime = Time.time + this.shootingDelay;
+        if (Input.GetMouseButtonDown(0))
+        {
+            shooting = true;
         }
+        if (Input.GetMouseButtonUp(0))
+        {
+            shooting = false;
+        }
+    }
+
+    void Shoot2()
+    {
+        if (shooting && !shotCooldown)
+        {
+            GameObject bulletObj = Instantiate(bullet, transform.position, transform.rotation);
+            bulletObj.GetComponent<Bullet>().SetShooterTag(gameObject.tag);
+            StartCoroutine(ShotCooldown());
+        }
+    }
+
+    IEnumerator ShotCooldown()
+    {
+        shotCooldown = true;
+        yield return new WaitForSeconds(shootingDelay);
+        shotCooldown = false;
     }
 
     public void Damage(int damage)

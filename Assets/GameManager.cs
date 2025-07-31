@@ -18,5 +18,6 @@ public class GameManager : MonoBehaviour
 
     public static void Lose() {
         // TODO: implement end screen and new game logic
+        Debug.Log("YOU LOST LIL BRO");
     }
 }

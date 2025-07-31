@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public const float DEFAULT_DAMAGE = 25.0f;
-    public const float DEFAULT_SPEED = 0.25f;
+    public const float DEFAULT_SPEED = 6f;
 
     private float damage;
     private string shooterTag;
@@ -14,13 +14,12 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         this.damage = Bullet.DEFAULT_DAMAGE;
-        this.shooterTag = "";  // Set this when Player/Enemy creates a bullet to shoot
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.transform.position += this.transform.up * Bullet.DEFAULT_SPEED;
+        this.transform.position += this.transform.up * Bullet.DEFAULT_SPEED * Time.deltaTime;
 
         float aspect = (float) Screen.width / Screen.height;
         float worldHeight = 2.0f * Camera.main.orthographicSize;

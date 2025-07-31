@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public const float DEFAULT_SPEED = 0.1f;
+    public const float DEFAULT_SPEED = 3f;
     public const float DEFAULT_HEALTH = 100.0f;
     public const float SHOOTING_COOLDOWN_SECONDS = 1.0f;
 
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
     void FixedUpdate()
     {
         this.FaceTowardPlayer();
-        this.transform.position += this.transform.up * this.speed;
+        this.transform.position += this.transform.up * this.speed * Time.deltaTime;
     }
 
     void FaceTowardPlayer() {
