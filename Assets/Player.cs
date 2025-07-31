@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     bool[] moving = {false, false, false, false};
     Rigidbody2D rb;
 
+    float shootingDelay = 0.5f;
+    float nextShootTime = 0.0f;
+    GameObject bullet;
+
     int health = 100;
 
     private void Start()
@@ -23,6 +27,7 @@ public class Player : MonoBehaviour
     {
         Movement();
         Rotation();
+        Shoot();
     }
 
     private void FixedUpdate()
@@ -85,8 +90,22 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
-    void Damage(int damage)
+    void Shoot()
+    {
+        if (Input.GetButton("Fire1") && Time.time >= this.nextShootTime) {
+            GameObject bulletObj = Instantiate(this.bullet,
+                                               this.transform.position,
+                                               this.transform.rotation);
+            bulletObj.GetComponent<Bullet>().SetShooterTag(this.gameObject.tag);
+            this.nextShootTime = Time.time + this.shootingDelay;
+        }
+    }
+
+    public void Damage(int damage)
     {
         health -= damage;
+        if (health <= 0) {
+            GameManager.Lose();  // Lost all health
+        }
     }
 }
