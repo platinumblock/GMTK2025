@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
-    void Damage(int damage)
+    public void Damage(int damage)
     {
         health -= damage;
     }
