@@ -11,12 +11,17 @@ public class Player : MonoBehaviour
     string[] moveKeys = { "a", "w", "s", "d" };
     bool[] moving = {false, false, false, false};
 
+    float shootingDelay = 0.5f;
+    float nextShootTime = 0.0f;
+    GameObject bullet;
+
     int health = 100;
 
     void Update()
     {
         Movement();
         Rotation();
+        Shoot();
     }
 
     void Movement()
@@ -71,8 +76,22 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
+    void Shoot()
+    {
+        if (Input.GetButton("Fire1") && Time.time >= this.nextShootTime) {
+            GameObject bulletObj = Instantiate(this.bullet,
+                                               this.transform.position,
+                                               this.transform.rotation);
+            bulletObj.GetComponent<Bullet>().SetShooterTag(this.gameObject.tag);
+            this.nextShootTime = Time.time + this.shootingDelay;
+        }
+    }
+
     public void Damage(int damage)
     {
         health -= damage;
+        if (health <= 0) {
+            GameManager.Lose();  // Lost all health
+        }
     }
 }

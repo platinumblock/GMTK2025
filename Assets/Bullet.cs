@@ -45,7 +45,7 @@ public class Bullet : MonoBehaviour
             Destroy(this.gameObject);
         }
         else if (c.tag == "PastPlayer" && this.shooterTag == "Player") {
-            // TODO: call lose here
+            GameManager.Lose();  // Killed a past player
         }
         else if (c.tag == "Player" && this.shooterTag == "Enemy") {
             c.gameObject.GetComponent<Player>().Damage((int) this.damage);
