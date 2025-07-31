@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameState : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class GameState : MonoBehaviour
         
     }
 
-    public void Lose() {
+    public static void Lose() {
         // TODO: implement end screen and new game logic
     }
 }
