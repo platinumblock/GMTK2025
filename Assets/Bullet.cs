@@ -38,7 +38,6 @@ public class Bullet : MonoBehaviour
         if (this.shooterTag == "") {
             Debug.Log("WARN: Bullet shooter tag not set");
         }
-
         if (c.tag == "Enemy" && this.shooterTag == "Player") {
             c.gameObject.GetComponent<Enemy>().Damage(this.damage);
             Destroy(this.gameObject);
