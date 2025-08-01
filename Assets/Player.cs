@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Player : MonoBehaviour
@@ -24,10 +26,17 @@ public class Player : MonoBehaviour
     public static List<Vector2> velocities = new List<Vector2>();
     public static List<float> angles = new List<float>();
 
+    public PostProcessVolume volume;
+    private Vignette vignette;
+    private ChromaticAberration chrome;
+
     private void Start()
     {
         startingPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
+
+        volume.profile.TryGetSettings(out vignette);
+        volume.profile.TryGetSettings(out chrome);
     }
 
     public void RecordStart()
@@ -139,5 +148,32 @@ public class Player : MonoBehaviour
         if (health <= 0) {
             GameManager.Lose();  // Lost all health
         }
+
+        StartCoroutine(DamageAnimation());
+    }
+
+    IEnumerator DamageAnimation()
+    {
+        float time = 0f;
+        float duration = 0.2f;
+        while(time < duration)
+        {
+            vignette.intensity.value = Mathf.Lerp(0, 0.6f, time / duration);
+            chrome.intensity.value = Mathf.Lerp(0, 0.6f, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+            
+        }
+        yield return new WaitForSeconds(0.1f);
+        time = 0f;
+        while (time < duration)
+        {
+            vignette.intensity.value = Mathf.Lerp(0.6f, 0, time / duration);
+            chrome.intensity.value = Mathf.Lerp(0.6f, 0, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+
+        }
+
     }
 }

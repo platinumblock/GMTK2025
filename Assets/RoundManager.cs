@@ -64,6 +64,6 @@ public class RoundManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Instantiate(enemy, new Vector3(3, -1, 0), Quaternion.identity);
+        Instantiate(enemy, new Vector3(Random.Range(-18f, 18f), Random.Range(-7f, 7f), 0), Quaternion.identity);
     }
 }

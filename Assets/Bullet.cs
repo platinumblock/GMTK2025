@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -9,6 +10,8 @@ public class Bullet : MonoBehaviour
 
     private float damage;
     private string shooterTag;
+
+    public GameObject explosionPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -40,13 +43,23 @@ public class Bullet : MonoBehaviour
         }
         if (c.tag == "Enemy" && this.shooterTag == "Player") {
             c.gameObject.GetComponent<Enemy>().Damage(this.damage);
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
         else if (c.tag == "PastPlayer" && this.shooterTag == "Player") {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             GameManager.Lose();  // Killed a past player
+            Destroy(this.gameObject);
         }
         else if (c.tag == "Player" && this.shooterTag == "Enemy") {
             c.gameObject.GetComponent<Player>().Damage((int) this.damage);
+            GameObject explode = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            var main = explode.GetComponent<ParticleSystem>().main;
+            main.startColor = Color.red;
+            Destroy(this.gameObject);
+        }
+        else if (c.tag == "Wall")
+        {
             Destroy(this.gameObject);
         }
     }
@@ -57,5 +70,12 @@ public class Bullet : MonoBehaviour
 
     public void SetShooterTag(string shooterTag) {
         this.shooterTag = shooterTag;
+
+        if(this.shooterTag == "Enemy")
+        {
+            GetComponent<SpriteRenderer>().color = Color.red;
+            var main = GetComponent<ParticleSystem>().main;
+            main.startColor = Color.red;
+        }
     }
 }

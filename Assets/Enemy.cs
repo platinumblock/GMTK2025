@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
 
     public GameObject bullet;
 
+    public GameObject explosionPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,6 +65,7 @@ public class Enemy : MonoBehaviour
     public void Damage(float damage) {
         this.health -= damage;
         if (this.health <= 0) {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
     }
