@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
     void FixedUpdate()
     {
         this.FaceTowardPlayer();
-        this.transform.position += this.transform.up * this.speed * Time.deltaTime;
+        this.transform.position += this.transform.GetChild(0).transform.up * this.speed * Time.deltaTime;
     }
 
     void FaceTowardPlayer() {
@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
         float thetaDeg = theta * (180.0f / Mathf.PI) - 90.0f;
 
         // Rotate to face the player
-        this.transform.Rotate(0.0f, 0.0f, (thetaDeg - this.rotation));
+        transform.GetChild(0).transform.Rotate(0.0f, 0.0f, (thetaDeg - this.rotation));
         this.rotation = thetaDeg;
 
     }
@@ -77,7 +77,7 @@ public class Enemy : MonoBehaviour
         // so we can just shoot with the current position/rotation to shoot toward the player
         GameObject bulletObj = Instantiate(this.bullet,
                                            this.transform.position,
-                                           this.transform.rotation);
+                                           this.transform.GetChild(0).transform.rotation);
         bulletObj.GetComponent<Bullet>().SetShooterTag(this.gameObject.tag);
 
         StartCoroutine(this.Shoot());

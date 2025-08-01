@@ -26,7 +26,8 @@ public class PastPlayer : MonoBehaviour
     {
         if(frameCounter < velocities.Count)
         {
-            rb.MovePosition(rb.position + velocities[frameCounter] * Time.fixedDeltaTime);
+            transform.position = velocities[frameCounter];
+            //rb.MovePosition(rb.position + velocities[frameCounter] * Time.fixedDeltaTime);
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angles[frameCounter]));
         }
         frameCounter += 1;

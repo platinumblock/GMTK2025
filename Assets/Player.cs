@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         Movement2();
-        Rotation();
+        
         Shoot2();
     }
 
@@ -97,22 +97,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    Vector2 oldPosition;
+
     void Movement2()
     {
-        velocities.Add(new Vector2(xVelocity, yVelocity));
+
+        velocities.Add(transform.position);
+
         rb.MovePosition(rb.position + new Vector2(xVelocity, yVelocity) * Time.fixedDeltaTime);
+        
+        
     }
 
-    void Rotation()
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0f;
-        Vector3 direction = mousePos - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-
-        angles.Add(angle);
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-    }
+   
     void Shoot()
     {
         if (Input.GetMouseButtonDown(0))
@@ -129,7 +126,7 @@ public class Player : MonoBehaviour
     {
         if (shooting && !shotCooldown)
         {
-            GameObject bulletObj = Instantiate(bullet, transform.position, transform.rotation);
+            GameObject bulletObj = Instantiate(bullet, transform.position, transform.GetChild(0).transform.rotation);
             bulletObj.GetComponent<Bullet>().SetShooterTag(gameObject.tag);
             StartCoroutine(ShotCooldown());
         }
