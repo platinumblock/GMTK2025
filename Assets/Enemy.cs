@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public const float DEFAULT_SPEED = 3f;
+    public const float DEFAULT_SPEED = 1.5f;
     public const float DEFAULT_HEALTH = 100.0f;
     public const float SHOOTING_COOLDOWN_SECONDS = 1.0f;
 

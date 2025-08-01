@@ -20,20 +20,31 @@ public class Player : MonoBehaviour
 
     int health = 100;
 
+    public static Vector3 startingPosition;
+    public static List<Vector2> velocities = new List<Vector2>();
+    public static List<float> angles = new List<float>();
+
     private void Start()
     {
+        startingPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void RecordStart()
+    {
+        startingPosition = transform.position;
     }
     void Update()
     {
         Movement();
-        Rotation();
+        
         Shoot();
     }
 
     private void FixedUpdate()
     {
         Movement2();
+        Rotation();
         Shoot2();
     }
 
@@ -79,6 +90,7 @@ public class Player : MonoBehaviour
 
     void Movement2()
     {
+        velocities.Add(new Vector2(xVelocity, yVelocity));
         rb.MovePosition(rb.position + new Vector2(xVelocity, yVelocity) * Time.fixedDeltaTime);
     }
 
@@ -89,6 +101,7 @@ public class Player : MonoBehaviour
         Vector3 direction = mousePos - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
 
+        angles.Add(angle);
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
     void Shoot()
