@@ -38,4 +38,21 @@ public class PastPlayer : MonoBehaviour
         frameCounter = 0;
         transform.position = startingPosition;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Wall")
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Wall")
+        {
+            GetComponent<SpriteRenderer>().enabled = true;
+            transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+        }
+    }
 }

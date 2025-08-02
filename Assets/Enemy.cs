@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
     {
         for (int i = 0; i < 1000; i++)
         {
-            float x = Random.Range(-18f, 18f);
+            float x = Random.Range(-16f, 16f);
             float y = Random.Range(-7f, 7f);
             if (!WillLineOverlapBlock(transform.position, new Vector2(x, y)))
             {
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
         float mag = Mathf.Sqrt(v.x * v.x + v.y * v.y);
         v = v / mag;
         this.transform.position = new Vector3(transform.position.x + v.x * speed * Time.deltaTime, transform.position.y + v.y * speed * Time.deltaTime, -1);
-        if(Vector2.Distance(transform.position, targetPosition) < 0.2f)
+        if(Vector2.Distance(transform.position, targetPosition) < 0.5f)
         {
             newTarget();
         }
@@ -151,6 +151,8 @@ public class Enemy : MonoBehaviour
 
     private static bool LineIntersectsAABB(Vector2 p1, Vector2 p2, Bounds bounds)
     {
+        bounds.Expand(0.75f * 2f);
+
         Vector2 min = bounds.min;
         Vector2 max = bounds.max;
 
