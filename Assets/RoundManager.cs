@@ -14,15 +14,19 @@ public class RoundManager : MonoBehaviour
     public Player player;
     Block[] blocks;
 
+    public GameObject cover;
+
     public GameObject enemySpawnLocations;
     void Start()
     {
         blocks = GameObject.FindObjectsOfType<Block>();
+        LeanTween.moveLocal(cover, new Vector2(0, -540), 0.3f).setEase(LeanTweenType.easeOutCubic);
         StartCoroutine(RunRound());
     }
 
     IEnumerator RunRound()
     {
+        yield return new WaitForSeconds(2f);
         for(int i = 0; i < enemiesSpawned; i++)
         {
             SpawnEnemy();
