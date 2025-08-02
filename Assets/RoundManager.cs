@@ -6,8 +6,8 @@ public class RoundManager : MonoBehaviour
 {
     int round = 1;
     float roundLength = 30;
-    float timeBetweenSpawns = 2;
-    float enemiesSpawned = 3;
+    float timeBetweenSpawns = 3;
+    float enemiesSpawned = 8;
     float timeBetweenRounds = 1;
     public GameObject enemy;
     public GameObject pastSelf;

@@ -8,7 +8,7 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Player : MonoBehaviour
 {
-    float speed = 2;
+    float speed = 3;
     float xVelocity = 0;
     float yVelocity = 0;
     string[] moveKeys = { "a", "w", "s", "d" };
@@ -147,6 +147,7 @@ public class Player : MonoBehaviour
         }
 
         StartCoroutine(DamageAnimation());
+        StartCoroutine(GameObject.FindObjectOfType<PlayerHealthBar>().Animate(health));
     }
 
     IEnumerator DamageAnimation()

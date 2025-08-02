@@ -18,6 +18,8 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     private int bounces = 0;
 
+    bool bounceCooldown = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,7 +75,7 @@ public class Bullet : MonoBehaviour
                 StartCoroutine(c.gameObject.GetComponent<Block>().Shake(0.15f, 0.1f));
             }
             
-            if(bounces == 1)
+            if(bounces == 2)
             {
                 if (this.shooterTag == "Enemy")
                 {
@@ -104,12 +106,22 @@ public class Bullet : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y);
             }
-            bounces += 1;
-               
-            
-           
+
+            if (!bounceCooldown)
+            {
+                bounces += 1;
+                StartCoroutine(BounceCooldown());
+            }
+
             //Destroy(this.gameObject);
         }
+    }
+
+    IEnumerator BounceCooldown()
+    {
+        bounceCooldown = true;
+        yield return new WaitForSeconds(0.1f);
+        bounceCooldown = false;
     }
 
     public void SetDamage(float damage) {

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    private int hp = 4;
+    private int hp = 8;
     bool cooldown = false;
 
     public GameObject blockExplosion;
 
     public void Reset()
     {
-        hp = 4;
+        hp = 8;
         cooldown = false;
     }
 
