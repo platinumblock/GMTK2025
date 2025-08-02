@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public const float DEFAULT_DAMAGE = 25.0f;
+    public const float DEFAULT_DAMAGE = 20.0f;
     public const float DEFAULT_SPEED = 6f;
 
     private float damage;
