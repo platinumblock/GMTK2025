@@ -30,6 +30,7 @@ public class RoundManager : MonoBehaviour
 
     public static bool transitioning = false;
     public static bool endGame = false;
+    public GameObject endScreen;
 
     void Start()
     {
@@ -121,6 +122,20 @@ public class RoundManager : MonoBehaviour
         ClearBullets();
         
         StartCoroutine(NoEffects());
+        
+    }
+
+    IEnumerator DropEnd()
+    {
+        float elapsedTime = 0f;
+        float duration = 0.5f;
+        float start = 509;
+        while (elapsedTime < duration)
+        {
+            endScreen.GetComponent<RectTransform>().anchoredPosition = new Vector2(endScreen.GetComponent<RectTransform>().anchoredPosition.x, Mathf.Lerp(start, 50, Mathf.SmoothStep(0f, 1f, elapsedTime / duration)));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
 
     IEnumerator NoEffects()
@@ -129,13 +144,17 @@ public class RoundManager : MonoBehaviour
         float duration = 0.5f;
         float startV = vignette.intensity.value;
         float startC = chrome.intensity.value;
+        float startD = depth.focusDistance.value;
         while (elapsedTime < duration)
         {
             vignette.intensity.value = Mathf.Lerp(startV, 0, elapsedTime / duration);
             chrome.intensity.value = Mathf.Lerp(startC, 0, elapsedTime / duration);
+            depth.focusDistance.value = Mathf.Lerp(startD, 2f, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
+        StartCoroutine(DropEnd());
     }
 
     IEnumerator RoundTransition()
@@ -147,7 +166,7 @@ public class RoundManager : MonoBehaviour
         while (elapsedTime < duration)
         {
             depth.focusDistance.value = Mathf.Lerp(start, end, elapsedTime / duration);
-            roundTransText.fontSize = Mathf.Lerp(0, 96, elapsedTime / duration);
+            roundTransText.fontSize = Mathf.Lerp(0, 50, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -170,7 +189,7 @@ public class RoundManager : MonoBehaviour
         while (elapsedTime < duration)
         {
             depth.focusDistance.value = Mathf.Lerp(end, start, elapsedTime / duration);
-            roundTransText.fontSize = Mathf.Lerp(96, 0, elapsedTime / duration);
+            roundTransText.fontSize = Mathf.Lerp(50, 0, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }

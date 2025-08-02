@@ -24,13 +24,17 @@ public class PastPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(frameCounter < velocities.Count)
+        if (!RoundManager.transitioning)
         {
-            transform.position = new Vector3(velocities[frameCounter].x, velocities[frameCounter].y, transform.position.z);
-            //rb.MovePosition(rb.position + velocities[frameCounter] * Time.fixedDeltaTime);
-            transform.GetChild(0).rotation = Quaternion.Euler(new Vector3(0, 0, angles[frameCounter]));
+            if (frameCounter < velocities.Count)
+            {
+                transform.position = new Vector3(velocities[frameCounter].x, velocities[frameCounter].y, transform.position.z);
+                //rb.MovePosition(rb.position + velocities[frameCounter] * Time.fixedDeltaTime);
+                transform.GetChild(0).rotation = Quaternion.Euler(new Vector3(0, 0, angles[frameCounter]));
+            }
+            frameCounter += 1;
         }
-        frameCounter += 1;
+        
     }
 
     public void Reset()

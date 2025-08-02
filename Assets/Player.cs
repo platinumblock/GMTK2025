@@ -169,6 +169,10 @@ public class Player : MonoBehaviour
 
     public void Damage(int damage)
     {
+        if (RoundManager.transitioning)
+        {
+            return;
+        }
         health -= damage;
         if (health <= 0) {
             rM.Lose(); // Lost all health
