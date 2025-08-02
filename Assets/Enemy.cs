@@ -25,8 +25,21 @@ public class Enemy : MonoBehaviour
         this.health = Enemy.DEFAULT_HEALTH;
         this.rotation = this.transform.localRotation.eulerAngles.z;
         StartCoroutine(this.Shoot());
-
+        StartCoroutine(ScaleUp());
         newTarget();
+    }
+
+    IEnumerator ScaleUp()
+    {
+        float elapsed = 0f;
+        float duration = 0.5f;
+        while (elapsed < duration)
+        {
+            float newScale = Mathf.Lerp(0f, 1.5f, elapsed / duration);
+            transform.localScale = new Vector3(newScale, newScale, 1);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
     }
 
     void newTarget()
