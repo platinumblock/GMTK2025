@@ -71,6 +71,11 @@ public class Bullet : MonoBehaviour
             Debug.Log("WARN: Bullet shooter tag not set");
         }
         if (c.tag == "Enemy" && this.shooterTag == "Player") {
+            if (c.gameObject.GetComponent<Enemy>().GetHealth() <= this.damage) {
+                GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
+                player.GetComponent<Player>().HealFromLifeSteal();
+            }
+
             c.gameObject.GetComponent<Enemy>().Damage(this.damage);
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             Destroy(this.gameObject);

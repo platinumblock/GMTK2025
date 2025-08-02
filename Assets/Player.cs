@@ -8,6 +8,8 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Player : MonoBehaviour
 {
+    public const int LIFE_STEAL_HEAL_AMOUNT = 10;
+    public const float LIFE_STEAL_DAMAGE_INTERVAL = 2.0f;
     float speed = 3;
     float xVelocity = 0;
     float yVelocity = 0;
@@ -44,6 +46,8 @@ public class Player : MonoBehaviour
 
         volume.profile.TryGetSettings(out vignette);
         volume.profile.TryGetSettings(out chrome);
+
+        StartCoroutine(DamageFromLifeSteal());
     }
 
     public void RecordStart()
@@ -210,5 +214,28 @@ public class Player : MonoBehaviour
 
     public float GetHealth() {
         return (float) this.health;
+    }
+
+    public void HealFromLifeSteal() {
+        if (RoundManager.transitioning)
+        {
+            return;
+        }
+        health += Player.LIFE_STEAL_HEAL_AMOUNT;
+        if (health > 100) {
+            health = 100;
+        }
+
+        StartCoroutine(healthBar.GetComponent<PlayerHealthBar>().Animate(health));
+    }
+
+    public IEnumerator DamageFromLifeSteal() {
+        while (this.health > 0) {
+            Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+            yield return new WaitForSeconds(Player.LIFE_STEAL_DAMAGE_INTERVAL);
+            if (enemies.Length > 0) {
+                this.Damage(Player.LIFE_STEAL_HEAL_AMOUNT);
+            }
+        }
     }
 }
