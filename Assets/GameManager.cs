@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    RoundManager rM;
     void Start()
     {
         
@@ -18,6 +19,6 @@ public class GameManager : MonoBehaviour
 
     public static void Lose() {
         // TODO: implement end screen and new game logic
-        Debug.Log("YOU LOST LIL BRO");
+        Debug.Log("ITOIJEOIJEOIJOIJTOJEORIJEOJMGKGM");
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public const float DEFAULT_SPEED = 1.5f;
-    public const float DEFAULT_HEALTH = 40.0f;
+    public const float DEFAULT_HEALTH = 20.0f;
     public const float SHOOTING_COOLDOWN_SECONDS = 3.0f;
 
     private float speed;
@@ -40,6 +40,7 @@ public class Enemy : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
+        transform.localScale = new Vector3(1.5f, 1.5f, 1);
     }
 
     void newTarget()

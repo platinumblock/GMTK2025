@@ -30,9 +30,16 @@ public class Player : MonoBehaviour
     private Vignette vignette;
     private ChromaticAberration chrome;
 
+    public GameObject healthBar;
+
+    public static Vector3 realStartingPosition;
+
+    public RoundManager rM;
+
     private void Start()
     {
         startingPosition = transform.position;
+        realStartingPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
 
         volume.profile.TryGetSettings(out vignette);
@@ -41,20 +48,41 @@ public class Player : MonoBehaviour
 
     public void RecordStart()
     {
+        transform.position = realStartingPosition;
         startingPosition = transform.position;
+    }
+
+    public void Reset()
+    {
+        xVelocity = 0;
+        yVelocity = 0;
+        moving = new bool[]{false, false, false, false};
+        shooting = false;
+        shotCooldown = false;
+        health = 100;
+        
+
     }
     void Update()
     {
-        Movement();
+        if (!RoundManager.transitioning)
+        {
+            Movement();
+
+            Shoot();
+        }
         
-        Shoot();
     }
 
     private void FixedUpdate()
     {
-        Movement2();
+        if (!RoundManager.transitioning)
+        {
+            Movement2();
+
+            Shoot2();
+        }
         
-        Shoot2();
     }
 
     void Movement()
@@ -143,11 +171,12 @@ public class Player : MonoBehaviour
     {
         health -= damage;
         if (health <= 0) {
-            GameManager.Lose();  // Lost all health
+            rM.Lose(); // Lost all health
+            return;
         }
 
         StartCoroutine(DamageAnimation());
-        StartCoroutine(GameObject.FindObjectOfType<PlayerHealthBar>().Animate(health));
+        StartCoroutine(healthBar.GetComponent<PlayerHealthBar>().Animate(health));
     }
 
     IEnumerator DamageAnimation()
@@ -166,8 +195,8 @@ public class Player : MonoBehaviour
         time = 0f;
         while (time < duration)
         {
-            vignette.intensity.value = Mathf.Lerp(0.4f, 0, time / duration);
-            chrome.intensity.value = Mathf.Lerp(0.6f, 0, time / duration);
+            vignette.intensity.value = Mathf.Lerp(0.4f, 0.2f + 0.3f * (100 - health) / 100, time / duration);
+            chrome.intensity.value = Mathf.Lerp(0.6f, 0.3f * (100 - health) / 100, time / duration);
             time += Time.deltaTime;
             yield return null;
 

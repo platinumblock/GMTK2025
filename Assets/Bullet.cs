@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public const float DEFAULT_DAMAGE = 20.0f;
+    public const float DEFAULT_DAMAGE = 10.0f;
     public const float DEFAULT_SPEED = 6f;
 
     private float damage;
@@ -31,8 +31,12 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-       // this.transform.position += this.transform.up * Bullet.DEFAULT_SPEED * Time.deltaTime;
+
+        if (RoundManager.transitioning)
+        {
+            SelfDestruct();
+        }
+        // this.transform.position += this.transform.up * Bullet.DEFAULT_SPEED * Time.deltaTime;
 
         float aspect = (float) Screen.width / Screen.height;
         float worldHeight = 2.0f * Camera.main.orthographicSize;
@@ -45,6 +49,21 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public void SelfDestruct()
+    {
+        if(this.shooterTag == "Player")
+        {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        }
+        if(this.shooterTag == "Enemy")
+        {
+            GameObject explode = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            var main = explode.GetComponent<ParticleSystem>().main;
+            main.startColor = new Color(191 / 255f, 64 / 255f, 64 / 255f);
+        }
+        Destroy(this.gameObject);
     }
 
     public void OnTriggerEnter2D(Collider2D c) {

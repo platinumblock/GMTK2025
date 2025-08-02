@@ -11,6 +11,10 @@ public class PlayerHealthBar : MonoBehaviour
     public TMP_Text healthText;
     private GameObject player;
 
+    public int textStartPosition;
+    public int barWidth;
+    public int maxValue;
+
     void Start()
     {
         player = GameObject.FindGameObjectsWithTag("Player")[0];
@@ -26,18 +30,37 @@ public class PlayerHealthBar : MonoBehaviour
         */
     }
 
+    public IEnumerator SlowAnimate(float end)
+    {
+        float elapsedTime = 0f;
+        float duration = 3f;
+        float start = healthBarFill.fillAmount;
+        float startText = healthText.gameObject.GetComponent<RectTransform>().anchoredPosition.x;
+
+        while (elapsedTime < duration)
+        {
+            healthBarFill.fillAmount = Mathf.Lerp(start, end / maxValue, elapsedTime / duration);
+            healthBarFill2.fillAmount = Mathf.Lerp(start, end / maxValue, elapsedTime / duration);
+            healthText.text = Mathf.Round(100 * Mathf.Lerp(start * maxValue, end, elapsedTime / duration) / maxValue) + "%";
+            //healthText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(startText, textStartPosition - barWidth * (maxValue - end) / maxValue, elapsedTime / duration), healthText.gameObject.GetComponent<RectTransform>().anchoredPosition.y);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
     public IEnumerator Animate(float end)
     {
-        healthText.text = Mathf.Round(end) + "%"; // ASSUMING TOTAL HEALTH 100
+        //healthText.text = Mathf.Round(end) + "%"; // ASSUMING TOTAL HEALTH 100
         float elapsedTime = 0f;
         float duration = 0.3f;
         float start = healthBarFill.fillAmount;
         float startText = healthText.gameObject.GetComponent<RectTransform>().anchoredPosition.x;
+       
         while (elapsedTime < duration)
         {
-            healthBarFill.fillAmount = Mathf.Lerp(start, end / 100f, elapsedTime / duration);
-            healthBarFill2.fillAmount = Mathf.Lerp(start, end / 100f, elapsedTime / duration);
-            healthText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(startText, 232 - 250 * (100f - end) / 100f, elapsedTime / duration), -11.7f);
+            healthBarFill.fillAmount = Mathf.Lerp(start, end / maxValue, elapsedTime / duration);
+            healthBarFill2.fillAmount = Mathf.Lerp(start, end / maxValue, elapsedTime / duration);
+            healthText.text = Mathf.Round(100 * Mathf.Lerp(start * maxValue, end, elapsedTime / duration) / maxValue) + "%";
+            //healthText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(startText, textStartPosition - barWidth * (maxValue - end) / maxValue, elapsedTime / duration), healthText.gameObject.GetComponent<RectTransform>().anchoredPosition.y);
             elapsedTime += Time.deltaTime;
             yield return null;
         }

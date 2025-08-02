@@ -14,7 +14,11 @@ public class PlayerTurret : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Rotation();
+        if (!RoundManager.transitioning)
+        {
+            Rotation();
+        }
+        
     }
 
     void Rotation()
