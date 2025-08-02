@@ -26,7 +26,7 @@ public class PastPlayer : MonoBehaviour
     {
         if(frameCounter < velocities.Count)
         {
-            transform.position = velocities[frameCounter];
+            transform.position = new Vector3(velocities[frameCounter].x, velocities[frameCounter].y, transform.position.z);
             //rb.MovePosition(rb.position + velocities[frameCounter] * Time.fixedDeltaTime);
             transform.GetChild(0).rotation = Quaternion.Euler(new Vector3(0, 0, angles[frameCounter]));
         }
@@ -38,7 +38,7 @@ public class PastPlayer : MonoBehaviour
         frameCounter = 0;
         transform.position = startingPosition;
     }
-
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Wall")
@@ -55,4 +55,5 @@ public class PastPlayer : MonoBehaviour
             transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
         }
     }
+    */
 }
