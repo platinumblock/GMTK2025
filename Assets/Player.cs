@@ -8,7 +8,7 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Player : MonoBehaviour
 {
-    float speed = 4;
+    float speed = 2;
     float xVelocity = 0;
     float yVelocity = 0;
     string[] moveKeys = { "a", "w", "s", "d" };
@@ -155,7 +155,7 @@ public class Player : MonoBehaviour
         float duration = 0.2f;
         while(time < duration)
         {
-            vignette.intensity.value = Mathf.Lerp(0, 0.6f, time / duration);
+            vignette.intensity.value = Mathf.Lerp(0, 0.4f, time / duration);
             chrome.intensity.value = Mathf.Lerp(0, 0.6f, time / duration);
             time += Time.deltaTime;
             yield return null;
@@ -165,7 +165,7 @@ public class Player : MonoBehaviour
         time = 0f;
         while (time < duration)
         {
-            vignette.intensity.value = Mathf.Lerp(0.6f, 0, time / duration);
+            vignette.intensity.value = Mathf.Lerp(0.4f, 0, time / duration);
             chrome.intensity.value = Mathf.Lerp(0.6f, 0, time / duration);
             time += Time.deltaTime;
             yield return null;

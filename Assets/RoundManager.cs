@@ -5,15 +5,17 @@ using UnityEngine;
 public class RoundManager : MonoBehaviour
 {
     int round = 1;
-    float roundLength = 10;
+    float roundLength = 30;
     float timeBetweenSpawns = 2;
     float enemiesSpawned = 3;
     float timeBetweenRounds = 1;
     public GameObject enemy;
     public GameObject pastSelf;
     public Player player;
+    Block[] blocks;
     void Start()
     {
+        blocks = GameObject.FindObjectsOfType<Block>();
         StartCoroutine(RunRound());
     }
 
@@ -35,8 +37,23 @@ public class RoundManager : MonoBehaviour
         ResetPastSelves();
         SpawnPastSelf();
         player.RecordStart();
+        foreach(Block block in blocks)
+        {
+            block.gameObject.SetActive(true);
+            block.Reset();
+        }
+        ClearBullets();
 
         StartCoroutine(RunRound());
+    }
+
+    void ClearBullets()
+    {
+        Bullet[] bullets = GameObject.FindObjectsOfType<Bullet>();
+        foreach(Bullet bullet in bullets)
+        {
+            Destroy(bullet.gameObject);
+        }
     }
 
     void ResetPastSelves()
@@ -64,6 +81,6 @@ public class RoundManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Instantiate(enemy, new Vector3(Random.Range(-18f, 18f), Random.Range(-7f, 7f), 0), Quaternion.identity);
+        Instantiate(enemy, new Vector3(Random.Range(-18f, 18f), Random.Range(-7f, 7f), -1), Quaternion.identity);
     }
 }
