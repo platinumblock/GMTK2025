@@ -202,4 +202,8 @@ public class Enemy : MonoBehaviour
 
         return u >= 0f && u <= 1f && v >= 0f && v <= 1f;
     }
+
+    public float GetHealth() {
+        return this.health;
+    }
 }
