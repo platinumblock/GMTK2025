@@ -624,6 +624,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.5
+  blockExplodes: {fileID: 8300000, guid: 22834bd332b171f4fa51999c1fb1a928, type: 3}
 --- !u!1 &103896575
 GameObject:
   m_ObjectHideFlags: 0
@@ -2685,6 +2686,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.5
+  blockExplodes: {fileID: 8300000, guid: 22834bd332b171f4fa51999c1fb1a928, type: 3}
 --- !u!1 &651278503
 GameObject:
   m_ObjectHideFlags: 0
@@ -3066,6 +3068,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.25
   scaleY: 1.25
+  blockExplodes: {fileID: 8300000, guid: 22834bd332b171f4fa51999c1fb1a928, type: 3}
 --- !u!212 &734314424
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3521,7 +3524,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorTexture: {fileID: 2800000, guid: ee7b51eee1dfec948a902e3794c1965a, type: 3}
-  hotspot: {x: 15, y: 15}
 --- !u!1 &841062364
 GameObject:
   m_ObjectHideFlags: 0
@@ -4110,6 +4112,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.25
   scaleY: 1.25
+  blockExplodes: {fileID: 8300000, guid: 22834bd332b171f4fa51999c1fb1a928, type: 3}
 --- !u!212 &1069742586
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4657,6 +4660,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.5
+  blockExplodes: {fileID: 8300000, guid: 22834bd332b171f4fa51999c1fb1a928, type: 3}
 --- !u!212 &1183715808
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5523,6 +5527,8 @@ MonoBehaviour:
   volume: {fileID: 519420033}
   healthBar: {fileID: 334025755}
   rM: {fileID: 1661685835}
+  shoot: {fileID: 8300000, guid: a6934056b82a10c4895d2ebbfce42381, type: 3}
+  playerDies: {fileID: 8300000, guid: c93df874ed1849647b505e3aad9de6c3, type: 3}
 --- !u!50 &1500474907
 Rigidbody2D:
   serializedVersion: 4
@@ -5746,7 +5752,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Loop Broken
+  m_text: 'Game Over
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f0a391ebb3949da4594c72842fd903a0, type: 2}
   m_sharedMaterial: {fileID: 248368244233700557, guid: f0a391ebb3949da4594c72842fd903a0, type: 2}
@@ -6113,7 +6121,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Time: ?'
+  m_text: D Rank
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f0a391ebb3949da4594c72842fd903a0, type: 2}
   m_sharedMaterial: {fileID: 248368244233700557, guid: f0a391ebb3949da4594c72842fd903a0, type: 2}
@@ -6122,8 +6130,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286142506
-  m_fontColor: {r: 0.16470589, g: 0.34509805, b: 0.47450984, a: 1}
+    rgba: 4289473732
+  m_fontColor: {r: 0.76729554, g: 0.17131434, b: 0.67617357, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6140,8 +6148,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6397,6 +6405,7 @@ MonoBehaviour:
   finalTimeText: {fileID: 1634380331}
   restartButton: {fileID: 343876166}
   exitButton: {fileID: 1196039310}
+  beginRound: {fileID: 8300000, guid: a6756435223e64e4687284809bac6c63, type: 3}
 --- !u!4 &1661685836
 Transform:
   m_ObjectHideFlags: 0
@@ -6725,6 +6734,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.2
+  blockExplodes: {fileID: 8300000, guid: 22834bd332b171f4fa51999c1fb1a928, type: 3}
 --- !u!1 &1763375079
 GameObject:
   m_ObjectHideFlags: 0
@@ -7054,6 +7064,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.2
+  blockExplodes: {fileID: 8300000, guid: 22834bd332b171f4fa51999c1fb1a928, type: 3}
 --- !u!1 &1800488542
 GameObject:
   m_ObjectHideFlags: 0

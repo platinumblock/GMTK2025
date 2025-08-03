@@ -18,6 +18,9 @@ public class Enemy : MonoBehaviour
 
     private Vector2 targetPosition;
 
+    public AudioClip enemyDies;
+    public AudioClip shoot;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -105,6 +108,7 @@ public class Enemy : MonoBehaviour
         this.health -= damage;
         if (this.health <= 0) {
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(enemyDies, new Vector3(0, 0, 0));
             Destroy(this.gameObject);
         }
     }
@@ -118,6 +122,7 @@ public class Enemy : MonoBehaviour
                                            this.transform.position,
                                            this.transform.GetChild(0).transform.rotation);
         bulletObj.GetComponent<Bullet>().SetShooterTag(this.gameObject.tag);
+        AudioSource.PlayClipAtPoint(shoot, new Vector3(0, 0, 0));
 
         StartCoroutine(this.Shoot());
     }

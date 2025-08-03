@@ -12,6 +12,8 @@ public class Block : MonoBehaviour
     public float scaleX;
     public float scaleY;
 
+    public AudioClip blockExplodes;
+
     public void Start()
     {
         StartCoroutine(ScaleUp());
@@ -33,7 +35,7 @@ public class Block : MonoBehaviour
     }
     public void Bro()
     {
-        if(this != null)
+        if(this.isActiveAndEnabled)
         {
             StartCoroutine(ScaleDown());
         }
@@ -77,6 +79,7 @@ public class Block : MonoBehaviour
             if (hp <= 0)
             {
                 Instantiate(blockExplosion, new Vector3(transform.position.x, transform.position.y, -3), transform.rotation);
+                AudioSource.PlayClipAtPoint(blockExplodes, new Vector3(0, 0, 0));
                 this.gameObject.SetActive(false);
                 yield break;
             }

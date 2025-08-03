@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
@@ -41,6 +42,8 @@ public class RoundManager : MonoBehaviour
 
     private int totalTimer = 0;
 
+    public AudioClip beginRound;
+
     void Start()
     {
         blocks = GameObject.FindObjectsOfType<Block>();
@@ -54,6 +57,9 @@ public class RoundManager : MonoBehaviour
 
     IEnumerator Begin()
     {
+        AudioListener.volume = 15f;
+        AudioSource.PlayClipAtPoint(beginRound, new Vector3(0, 0, 0));
+        
         transitioning = true;
         float elapsedTime = 0f;
         float duration = 0.5f;
@@ -65,6 +71,7 @@ public class RoundManager : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(2.5f);
+        AudioListener.volume = 1f;
         elapsedTime = 0f;
         while (elapsedTime < duration)
         {
@@ -89,7 +96,10 @@ public class RoundManager : MonoBehaviour
         {
             yield break;
         }
-        totalTimer += 1;
+        if (!transitioning)
+        {
+            totalTimer += 1;
+        }
         StartCoroutine(TotalTimer());
     }
 
@@ -158,7 +168,7 @@ public class RoundManager : MonoBehaviour
             yield break;
         }
 
-        ResetPastSelves();
+        
         SpawnPastSelf();
         
 
@@ -200,7 +210,45 @@ public class RoundManager : MonoBehaviour
     }
     IEnumerator DropEnd()
     {
-        finalTimeText.text = "Time: " + totalTimer + "s";
+        string rank = "";
+        Color color;
+        switch (totalTimer)
+        {
+            case < 15:
+                rank = "D";
+                color = new Color(196, 44, 173);
+                break;
+            case < 30:
+                rank = "C";
+                color = new Color(167, 110, 51);
+                break;
+            case < 60:
+                rank = "B";
+                color = new Color(42, 88, 121);
+                break;
+            case < 90:
+                rank = "A";
+                color = new Color(197, 61, 56);
+                break;
+            case >= 90:
+                rank = "S";
+                color = new Color(39, 255, 0);
+                break;
+        }
+        color = new Color(color.r / 255f, color.g / 255f, color.b / 255f);
+        finalTimeText.text = rank + " Rank";
+        if(rank == "D")
+        {
+            finalTimeText.text += " :(";
+        }
+        if(rank == "A")
+        {
+            finalTimeText.text += "!";
+        }
+        if (rank == "S") {
+            finalTimeText.text += "!!!";
+        }
+        finalTimeText.color = color;
         restartButton.SetActive(true);
         exitButton.SetActive(true);
         float elapsedTime = 0f;
@@ -272,6 +320,7 @@ public class RoundManager : MonoBehaviour
             block.Reset();
         }
         player.RecordStart();
+        ResetPastSelves();
 
 
         yield return new WaitForSeconds(1.5f);

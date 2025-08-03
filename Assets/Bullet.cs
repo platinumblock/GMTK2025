@@ -10,8 +10,10 @@ public class Bullet : MonoBehaviour
     public const float DEFAULT_DAMAGE = 10.0f;
     public const float DEFAULT_SPEED = 6f;
 
-    public AudioSource audioSource; 
-    public AudioClip shootClip;  
+    public AudioClip playerHurt;
+    public AudioClip pastPlayerHurt;
+    public AudioClip enemyHurt;
+    public AudioClip bulletBounce;
 
     private float damage;
     private string shooterTag;
@@ -81,7 +83,7 @@ public class Bullet : MonoBehaviour
 
             c.gameObject.GetComponent<Enemy>().Damage(this.damage);
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(shootClip, transform.position);
+            AudioSource.PlayClipAtPoint(enemyHurt, new Vector3(0, 0, 0));
             Destroy(this.gameObject);
         }
         else if (c.tag == "PastPlayer" && this.shooterTag == "Player") {
@@ -89,7 +91,7 @@ public class Bullet : MonoBehaviour
             GameObject explode = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             var main = explode.GetComponent<ParticleSystem>().main;
             main.startColor = new Color(191 / 255f, 64 / 255f, 64 / 255f);
-            AudioSource.PlayClipAtPoint(shootClip, transform.position);
+            AudioSource.PlayClipAtPoint(pastPlayerHurt, new Vector3(0, 0, 0));
             Destroy(this.gameObject);
         }
         else if (c.tag == "Player" && this.shooterTag == "Enemy") {
@@ -97,7 +99,7 @@ public class Bullet : MonoBehaviour
             GameObject explode = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             var main = explode.GetComponent<ParticleSystem>().main;
             main.startColor = new Color(191 / 255f, 64 / 255f, 64 / 255f);
-            AudioSource.PlayClipAtPoint(shootClip, transform.position);
+            AudioSource.PlayClipAtPoint(playerHurt, new Vector3(0,0,0));
             Destroy(this.gameObject);
         }
         else if (c.tag == "Wall")
@@ -144,6 +146,7 @@ public class Bullet : MonoBehaviour
                 bounces += 1;
                 StartCoroutine(BounceCooldown());
             }
+            AudioSource.PlayClipAtPoint(bulletBounce, new Vector3(0, 0, 0));
 
             //Destroy(this.gameObject);
         }

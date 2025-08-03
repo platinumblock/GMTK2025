@@ -39,6 +39,9 @@ public class Player : MonoBehaviour
 
     public RoundManager rM;
 
+    public AudioClip shoot;
+    public AudioClip playerDies;
+
     private void Start()
     {
         startingPosition = transform.position;
@@ -161,6 +164,7 @@ public class Player : MonoBehaviour
             GameObject bulletObj = Instantiate(bullet, transform.position, transform.GetChild(0).transform.rotation);
             bulletObj.GetComponent<Bullet>().SetShooterTag(gameObject.tag);
             StartCoroutine(ShotCooldown());
+            AudioSource.PlayClipAtPoint(shoot, new Vector3(0, 0, 0));
         }
     }
 
@@ -180,6 +184,7 @@ public class Player : MonoBehaviour
         health -= damage;
         if (health <= 0) {
             rM.Lose(); // Lost all health
+            AudioSource.PlayClipAtPoint(playerDies, new Vector3(0, 0, 0));
             return;
         }
 

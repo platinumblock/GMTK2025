@@ -925,3 +925,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 2740325150248647616, guid: 59b5724a1c875ca4a8101d3c696a52e2, type: 3}
   explosionPrefab: {fileID: 5296616174549780163, guid: 5b83959da142e9a429abb4c7528ea778, type: 3}
+  enemyDies: {fileID: 8300000, guid: e4867cf26fe44b64fa47443aabe117da, type: 3}
+  shoot: {fileID: 8300000, guid: a6934056b82a10c4895d2ebbfce42381, type: 3}
