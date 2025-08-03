@@ -87,7 +87,7 @@ public class Bullet : MonoBehaviour
             Destroy(this.gameObject);
         }
         else if (c.tag == "PastPlayer" && this.shooterTag == "Player") {
-            GameObject.FindObjectOfType<Player>().Damage((int)this.damage);
+            GameObject.FindObjectOfType<Player>().Damage((int)DEFAULT_DAMAGE);
             GameObject explode = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             var main = explode.GetComponent<ParticleSystem>().main;
             main.startColor = new Color(191 / 255f, 64 / 255f, 64 / 255f);

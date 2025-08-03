@@ -43,6 +43,9 @@ public class RoundManager : MonoBehaviour
     private int totalTimer = 0;
 
     public AudioClip beginRound;
+    public AudioClip rewind;
+
+    public AudioSource song;
 
     void Start()
     {
@@ -82,6 +85,7 @@ public class RoundManager : MonoBehaviour
         }
         beginText.fontSize = 0;
         transitioning = false;
+
 
         StartCoroutine(RunRound());
         StartCoroutine(RoundTimer());
@@ -131,6 +135,7 @@ public class RoundManager : MonoBehaviour
 
     IEnumerator RunRound()
     {
+        song.Play();
         for(int i = 0; i < enemiesSpawned; i++)
         {
             SpawnEnemy();
@@ -148,7 +153,6 @@ public class RoundManager : MonoBehaviour
         {
             yield break;
         }
-
         transitioning = true;
         ClearEnemies();
         ClearBullets();
@@ -156,8 +160,10 @@ public class RoundManager : MonoBehaviour
         {
             block.Bro();
         }
+        song.Pause();
         yield return new WaitForSeconds(1f);
         
+        AudioSource.PlayClipAtPoint(rewind, new Vector3(0, 0, 0));
         StartCoroutine(RoundTransition());
         StartCoroutine(NoEffects2());
 
@@ -184,6 +190,7 @@ public class RoundManager : MonoBehaviour
 
     public void Lose()
     {
+        song.Pause();
         transitioning = true;
         endGame = true;
         StartCoroutine(healthBar.GetComponent<PlayerHealthBar>().Animate(0));
