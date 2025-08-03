@@ -1223,6 +1223,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.2
+  blockExplodes: {fileID: 0}
 --- !u!212 &234802462
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1494,6 +1495,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.5
+  blockExplodes: {fileID: 0}
 --- !u!61 &453012001
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1642,6 +1644,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.5
+  blockExplodes: {fileID: 0}
 --- !u!61 &486796054
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2088,6 +2091,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.25
   scaleY: 1.25
+  blockExplodes: {fileID: 0}
 --- !u!212 &608672072
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2407,6 +2411,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.5
+  blockExplodes: {fileID: 0}
 --- !u!61 &781811226
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3137,6 +3142,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.5
+  blockExplodes: {fileID: 0}
 --- !u!212 &1135610884
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3325,6 +3331,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.2
+  blockExplodes: {fileID: 0}
 --- !u!61 &1245170901
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3589,6 +3596,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1367295904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1367295906}
+  - component: {fileID: 1367295905}
+  m_Layer: 0
+  m_Name: CursorManagerObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1367295905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367295904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6beffae91aaecf09b91d790fc311b799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorTexture: {fileID: 2800000, guid: ee7b51eee1dfec948a902e3794c1965a, type: 3}
+--- !u!4 &1367295906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367295904}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 673.3424, y: 206.58011, z: -14.935984}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1395250709
 GameObject:
   m_ObjectHideFlags: 0
@@ -4461,6 +4513,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.25
   scaleY: 1.25
+  blockExplodes: {fileID: 0}
 --- !u!212 &1730878555
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4565,6 +4618,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.2
+  blockExplodes: {fileID: 0}
 --- !u!61 &1781102209
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4843,6 +4897,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.25
   scaleY: 1.25
+  blockExplodes: {fileID: 0}
 --- !u!212 &1868031345
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5151,6 +5206,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.5
+  blockExplodes: {fileID: 0}
 --- !u!61 &1913835659
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5343,6 +5399,7 @@ MonoBehaviour:
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
   scaleY: 1.5
+  blockExplodes: {fileID: 0}
 --- !u!212 &1917081536
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6416,3 +6473,4 @@ SceneRoots:
   - {fileID: 2091146286}
   - {fileID: 1254174137}
   - {fileID: 2085249038}
+  - {fileID: 1367295906}
