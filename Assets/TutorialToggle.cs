@@ -7,6 +7,8 @@ public class TutorialToggle : MonoBehaviour
     public RectTransform panel;
     public Button showButton;
     public Button hideButton;
+    public Button playButton;
+    public Button quitButton;
     public float slideDuration = 0.3f;
     public float slideDistance = 200f; // How far above the visible area the panel starts
 
@@ -26,6 +28,8 @@ public class TutorialToggle : MonoBehaviour
 
     IEnumerator SlideIn()
     {
+        playButton.gameObject.SetActive(false);
+        quitButton.gameObject.SetActive(false);
         panel.gameObject.SetActive(true);
         float time = 0f;
         while (time < slideDuration)
@@ -50,5 +54,7 @@ public class TutorialToggle : MonoBehaviour
         }
         panel.anchoredPosition = hiddenPos;
         panel.gameObject.SetActive(false);
+        playButton.gameObject.SetActive(true);
+        quitButton.gameObject.SetActive(true);
     }
 }

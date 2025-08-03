@@ -1593,6 +1593,8 @@ MonoBehaviour:
   panel: {fileID: 488080146}
   showButton: {fileID: 806440212}
   hideButton: {fileID: 1852290115}
+  playButton: {fileID: 627608643}
+  quitButton: {fileID: 76595208}
   slideDuration: 0.3
   slideDistance: 200
 --- !u!1 &234802457
