@@ -1737,7 +1737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
-  scaleY: 1.2
+  scaleY: 1.5
   blockExplodes: {fileID: 0}
 --- !u!212 &234802462
 SpriteRenderer:
@@ -3239,8 +3239,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
-  scaleX: 1.25
-  scaleY: 1.25
+  scaleX: 1.5
+  scaleY: 1.5
   blockExplodes: {fileID: 0}
 --- !u!212 &608672072
 SpriteRenderer:
@@ -5181,7 +5181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
-  scaleY: 1.2
+  scaleY: 1.5
   blockExplodes: {fileID: 0}
 --- !u!61 &1245170901
 BoxCollider2D:
@@ -6698,8 +6698,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
-  scaleX: 1.25
-  scaleY: 1.25
+  scaleX: 1.5
+  scaleY: 1.5
   blockExplodes: {fileID: 0}
 --- !u!212 &1730878555
 SpriteRenderer:
@@ -6804,7 +6804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
   scaleX: 1.5
-  scaleY: 1.2
+  scaleY: 1.5
   blockExplodes: {fileID: 0}
 --- !u!61 &1781102209
 BoxCollider2D:
@@ -7235,8 +7235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockExplosion: {fileID: 90111779844870663, guid: 1991b28cd424a2e4db5ab16826c11452, type: 3}
-  scaleX: 1.25
-  scaleY: 1.25
+  scaleX: 1.5
+  scaleY: 1.5
   blockExplodes: {fileID: 0}
 --- !u!212 &1868031345
 SpriteRenderer:
