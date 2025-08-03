@@ -5,14 +5,12 @@ using UnityEngine;
 public class CursorManager : MonoBehaviour
 {
     public Texture2D cursorTexture;
-    public Vector2 hotspot = Vector2.zero;
 
     void Start()
     {
-        // Check if the cursor texture is assigned
         if (cursorTexture != null)
         {
-            // Set the cursor using the texture and hotspot
+            Vector2 hotspot = new Vector2(cursorTexture.width / 2.0f, cursorTexture.height / 2.0f);
             Cursor.SetCursor(cursorTexture, hotspot, CursorMode.Auto);
         }
     }
