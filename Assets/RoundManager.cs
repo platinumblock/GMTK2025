@@ -101,20 +101,22 @@ public class RoundManager : MonoBehaviour
             
             yield return new WaitForSeconds(0.5f);
             StartCoroutine(timeBar.GetComponent<PlayerHealthBar>().Animate((i + 1) / 2f));
-            if (endGame)
+            if (endGame || transitioning)
             {
                 yield break;
             }
             
         }
+        /*
         yield return new WaitForSeconds(timeBetweenRounds);
         
         if (endGame)
         {
             yield break;
         }
+        */
 
-        StartCoroutine(RoundTimer());
+        //StartCoroutine(RoundTimer());
     }
 
     IEnumerator RunRound()
@@ -166,6 +168,7 @@ public class RoundManager : MonoBehaviour
 
         transitioning = false;
 
+        StartCoroutine(RoundTimer());
         StartCoroutine(RunRound());
     }
 
