@@ -20,6 +20,21 @@ public class PastPlayer : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         startingPosition = transform.position;
+        StartCoroutine(ScaleUp());
+    }
+
+    IEnumerator ScaleUp()
+    {
+        float elapsed = 0f;
+        float duration = 0.5f;
+        while (elapsed < duration)
+        {
+            float newScale = Mathf.Lerp(0f, 1.5f, elapsed / duration);
+            transform.localScale = new Vector3(newScale, newScale, 1);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.localScale = new Vector3(1.5f, 1.5f, 1);
     }
 
     private void FixedUpdate()

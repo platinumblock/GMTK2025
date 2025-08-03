@@ -8,8 +8,9 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Player : MonoBehaviour
 {
-    public const int LIFE_STEAL_HEAL_AMOUNT = 10;
-    public const float LIFE_STEAL_DAMAGE_INTERVAL = 2.0f;
+    public const int LIFE_STEAL_HEAL_AMOUNT = 20;
+    public const int LIFE_STEAL_DAMAGE_AMOUNT = 2;
+    public const float LIFE_STEAL_DAMAGE_INTERVAL = 1.0f;
     float speed = 3;
     float xVelocity = 0;
     float yVelocity = 0;
@@ -64,7 +65,6 @@ public class Player : MonoBehaviour
         shooting = false;
         shotCooldown = false;
         health = 100;
-        
 
     }
     void Update()
@@ -171,7 +171,7 @@ public class Player : MonoBehaviour
         shotCooldown = false;
     }
 
-    public void Damage(int damage)
+    public void Damage(int damage, bool screen = true)
     {
         if (RoundManager.transitioning)
         {
@@ -183,8 +183,32 @@ public class Player : MonoBehaviour
             return;
         }
 
-        StartCoroutine(DamageAnimation());
-        StartCoroutine(healthBar.GetComponent<PlayerHealthBar>().Animate(health));
+        if (screen)
+        {
+            StartCoroutine(DamageAnimation());
+        }
+        else
+        {
+            StartCoroutine(DamageAnimation2());
+        }
+
+            StartCoroutine(healthBar.GetComponent<PlayerHealthBar>().Animate(health));
+    }
+
+    IEnumerator DamageAnimation2()
+    {
+        float time = 0f;
+        float duration = 0.2f;
+        float startV = vignette.intensity.value;
+        float startC = chrome.intensity.value;
+        while (time < duration)
+        {
+            vignette.intensity.value = Mathf.Lerp(startV, 0.45f * (100 - health) / 100, time / duration);
+            chrome.intensity.value = Mathf.Lerp(startC, 0.3f * (100 - health) / 100, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+
+        }
     }
 
     IEnumerator DamageAnimation()
@@ -203,12 +227,38 @@ public class Player : MonoBehaviour
         time = 0f;
         while (time < duration)
         {
-            vignette.intensity.value = Mathf.Lerp(0.4f, 0.2f + 0.3f * (100 - health) / 100, time / duration);
+            vignette.intensity.value = Mathf.Lerp(0.4f, 0.45f * (100 - health) / 100, time / duration);
             chrome.intensity.value = Mathf.Lerp(0.6f, 0.3f * (100 - health) / 100, time / duration);
             time += Time.deltaTime;
             yield return null;
 
         }
+
+    }
+
+    IEnumerator HealAnimation()
+    {
+        float time = 0f;
+        float duration = 0.2f;
+        Color start = vignette.color.value;
+        vignette.color.value = Color.green;
+        while (time < duration)
+        {
+            vignette.intensity.value = Mathf.Lerp(0, 0.4f, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+
+        }
+        yield return new WaitForSeconds(0.1f);
+        time = 0f;
+        while (time < duration)
+        {
+            vignette.intensity.value = Mathf.Lerp(0.4f, 0f, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+
+        }
+        vignette.color.value = start;
 
     }
 
@@ -227,6 +277,7 @@ public class Player : MonoBehaviour
         }
 
         StartCoroutine(healthBar.GetComponent<PlayerHealthBar>().Animate(health));
+        StartCoroutine(HealAnimation());
     }
 
     public IEnumerator DamageFromLifeSteal() {
@@ -234,7 +285,7 @@ public class Player : MonoBehaviour
             Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
             yield return new WaitForSeconds(Player.LIFE_STEAL_DAMAGE_INTERVAL);
             if (enemies.Length > 0) {
-                this.Damage(Player.LIFE_STEAL_HEAL_AMOUNT);
+                this.Damage(Player.LIFE_STEAL_DAMAGE_AMOUNT, false);
             }
         }
     }

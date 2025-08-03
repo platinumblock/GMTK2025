@@ -51,7 +51,7 @@ public class PlayerHealthBar : MonoBehaviour
     {
         //healthText.text = Mathf.Round(end) + "%"; // ASSUMING TOTAL HEALTH 100
         float elapsedTime = 0f;
-        float duration = 0.3f;
+        float duration = 0.2f;
         float start = healthBarFill.fillAmount;
         float startText = healthText.gameObject.GetComponent<RectTransform>().anchoredPosition.x;
        

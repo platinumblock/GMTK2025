@@ -10,6 +10,9 @@ public class Bullet : MonoBehaviour
     public const float DEFAULT_DAMAGE = 10.0f;
     public const float DEFAULT_SPEED = 6f;
 
+    public AudioSource audioSource; 
+    public AudioClip shootClip;  
+
     private float damage;
     private string shooterTag;
 
@@ -78,6 +81,7 @@ public class Bullet : MonoBehaviour
 
             c.gameObject.GetComponent<Enemy>().Damage(this.damage);
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(shootClip, transform.position);
             Destroy(this.gameObject);
         }
         else if (c.tag == "PastPlayer" && this.shooterTag == "Player") {
@@ -85,6 +89,7 @@ public class Bullet : MonoBehaviour
             GameObject explode = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             var main = explode.GetComponent<ParticleSystem>().main;
             main.startColor = new Color(191 / 255f, 64 / 255f, 64 / 255f);
+            AudioSource.PlayClipAtPoint(shootClip, transform.position);
             Destroy(this.gameObject);
         }
         else if (c.tag == "Player" && this.shooterTag == "Enemy") {
@@ -92,6 +97,7 @@ public class Bullet : MonoBehaviour
             GameObject explode = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             var main = explode.GetComponent<ParticleSystem>().main;
             main.startColor = new Color(191 / 255f, 64 / 255f, 64 / 255f);
+            AudioSource.PlayClipAtPoint(shootClip, transform.position);
             Destroy(this.gameObject);
         }
         else if (c.tag == "Wall")

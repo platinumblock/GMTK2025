@@ -9,10 +9,56 @@ public class Block : MonoBehaviour
 
     public GameObject blockExplosion;
 
+    public float scaleX;
+    public float scaleY;
+
+    public void Start()
+    {
+        StartCoroutine(ScaleUp());
+    }
+
+    IEnumerator ScaleUp()
+    {
+        float elapsed = 0f;
+        float duration = 0.5f;
+        while (elapsed < duration)
+        {
+            float newScaleX = Mathf.Lerp(0f, scaleX, elapsed / duration);
+            float newScaleY = Mathf.Lerp(0f, scaleY, elapsed / duration);
+            transform.localScale = new Vector3(newScaleX, newScaleY, 1);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.localScale = new Vector3(scaleX, scaleY, 1);
+    }
+    public void Bro()
+    {
+        if(this != null)
+        {
+            StartCoroutine(ScaleDown());
+        }
+    }
+    IEnumerator ScaleDown()
+    {
+        float elapsed = 0f;
+        float duration = 0.5f;
+        while (elapsed < duration)
+        {
+            float newScaleX = Mathf.Lerp(scaleX,0f, elapsed / duration);
+            float newScaleY = Mathf.Lerp(scaleY,0f, elapsed / duration);
+            transform.localScale = new Vector3(newScaleX, newScaleY, 1);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.localScale = new Vector3(0, 0, 1);
+    }
+
+
     public void Reset()
     {
         hp = 8;
         cooldown = false;
+        StartCoroutine(ScaleUp());
     }
 
     IEnumerator Cooldown()

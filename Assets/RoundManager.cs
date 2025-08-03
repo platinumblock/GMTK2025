@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 
 
 public class RoundManager : MonoBehaviour
@@ -11,7 +13,7 @@ public class RoundManager : MonoBehaviour
     float roundLength = 30;
     float timeBetweenSpawns = 3;
     float enemiesSpawned = 8;
-    float timeBetweenRounds = 4;
+    float timeBetweenRounds = 5;
     public GameObject enemy;
     public GameObject pastSelf;
     public Player player;
@@ -27,20 +29,68 @@ public class RoundManager : MonoBehaviour
     private Vignette vignette;
     private ChromaticAberration chrome;
     public TMP_Text roundTransText;
+    public TMP_Text beginText;
 
     public static bool transitioning = false;
     public static bool endGame = false;
     public GameObject endScreen;
+    public TMP_Text finalTimeText;
+
+    public GameObject restartButton;
+    public GameObject exitButton;
+
+    private int totalTimer = 0;
 
     void Start()
     {
         blocks = GameObject.FindObjectsOfType<Block>();
-        StartCoroutine(RunRound());
-        StartCoroutine(RoundTimer());
+        StartCoroutine(Begin());
+        
 
         volume.profile.TryGetSettings(out depth);
         volume.profile.TryGetSettings(out vignette);
         volume.profile.TryGetSettings(out chrome);
+    }
+
+    IEnumerator Begin()
+    {
+        transitioning = true;
+        float elapsedTime = 0f;
+        float duration = 0.5f;
+
+        while (elapsedTime < duration)
+        {
+            beginText.fontSize = Mathf.Lerp(0, 50, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSeconds(2.5f);
+        elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            beginText.fontSize = Mathf.Lerp(50, 0, elapsedTime / duration);
+            depth.focusDistance.value = Mathf.Lerp(2, 4.24f, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        beginText.fontSize = 0;
+        transitioning = false;
+
+        StartCoroutine(RunRound());
+        StartCoroutine(RoundTimer());
+        StartCoroutine(TotalTimer());
+
+    }
+
+    IEnumerator TotalTimer()
+    {
+        yield return new WaitForSeconds(1f);
+        if (endGame)
+        {
+            yield break;
+        }
+        totalTimer += 1;
+        StartCoroutine(TotalTimer());
     }
 
     IEnumerator RoundTimer()
@@ -48,9 +98,9 @@ public class RoundManager : MonoBehaviour
         StartCoroutine(timeBar.GetComponent<PlayerHealthBar>().Animate(0f));
         for (int i = 0; i < roundLength * 2; i++)
         {
-            StartCoroutine(timeBar.GetComponent<PlayerHealthBar>().Animate(i / 2f));
-            yield return new WaitForSeconds(0.5f);
             
+            yield return new WaitForSeconds(0.5f);
+            StartCoroutine(timeBar.GetComponent<PlayerHealthBar>().Animate((i + 1) / 2f));
             if (endGame)
             {
                 yield break;
@@ -90,12 +140,18 @@ public class RoundManager : MonoBehaviour
         transitioning = true;
         ClearEnemies();
         ClearBullets();
+        foreach (Block block in blocks)
+        {
+            block.Bro();
+        }
+        yield return new WaitForSeconds(1f);
         
         StartCoroutine(RoundTransition());
+        StartCoroutine(NoEffects2());
 
         
 
-        yield return new WaitForSeconds(timeBetweenRounds);
+        yield return new WaitForSeconds(timeBetweenRounds - 1);
 
         if (endGame)
         {
@@ -125,19 +181,53 @@ public class RoundManager : MonoBehaviour
         
     }
 
+    public void Restart()
+    {
+        transitioning = false;
+        endGame = false;
+        Player.velocities = new List<Vector2>();
+        Player.angles = new List<float>();
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void Exit()
+    {
+        transitioning = false;
+        endGame = false;
+        Player.velocities = new List<Vector2>();
+        Player.angles = new List<float>();
+        SceneManager.LoadScene("MainMenu");
+    }
     IEnumerator DropEnd()
     {
+        finalTimeText.text = "Time: " + totalTimer + "s";
+        restartButton.SetActive(true);
+        exitButton.SetActive(true);
         float elapsedTime = 0f;
         float duration = 0.5f;
         float start = 509;
         while (elapsedTime < duration)
         {
-            endScreen.GetComponent<RectTransform>().anchoredPosition = new Vector2(endScreen.GetComponent<RectTransform>().anchoredPosition.x, Mathf.Lerp(start, 50, Mathf.SmoothStep(0f, 1f, elapsedTime / duration)));
+            endScreen.GetComponent<RectTransform>().anchoredPosition = new Vector2(endScreen.GetComponent<RectTransform>().anchoredPosition.x, Mathf.Lerp(start, 60, Mathf.SmoothStep(0f, 1f, elapsedTime / duration)));
             elapsedTime += Time.deltaTime;
             yield return null;
         }
     }
 
+    IEnumerator NoEffects2()
+    {
+        float elapsedTime = 0f;
+        float duration = 4f;
+        float startV = vignette.intensity.value;
+        float startC = chrome.intensity.value;
+        while (elapsedTime < duration)
+        {
+            vignette.intensity.value = Mathf.Lerp(startV, 0, elapsedTime / duration);
+            chrome.intensity.value = Mathf.Lerp(startC, 0, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
     IEnumerator NoEffects()
     {
         float elapsedTime = 0f;
@@ -193,6 +283,7 @@ public class RoundManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        roundTransText.fontSize = 0;
 
     }
     void ClearBullets()
