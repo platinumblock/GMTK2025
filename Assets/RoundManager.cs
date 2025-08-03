@@ -217,23 +217,23 @@ public class RoundManager : MonoBehaviour
         Color color;
         switch (totalTimer)
         {
-            case < 15:
+            case < 30:
                 rank = "D";
                 color = new Color(196, 44, 173);
                 break;
-            case < 30:
+            case < 60:
                 rank = "C";
                 color = new Color(167, 110, 51);
                 break;
-            case < 60:
+            case < 150:
                 rank = "B";
                 color = new Color(42, 88, 121);
                 break;
-            case < 90:
+            case < 270:
                 rank = "A";
                 color = new Color(197, 61, 56);
                 break;
-            case >= 90:
+            case >= 270:
                 rank = "S";
                 color = new Color(39, 255, 0);
                 break;
