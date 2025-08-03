@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
@@ -245,7 +244,7 @@ public class Player : MonoBehaviour
     {
         float time = 0f;
         float duration = 0.2f;
-        Color start = vignette.color.value;
+        Color start = Color.red;
         vignette.color.value = Color.green;
         while (time < duration)
         {
