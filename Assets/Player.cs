@@ -7,8 +7,8 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Player : MonoBehaviour
 {
-    public const int LIFE_STEAL_HEAL_AMOUNT = 20;
-    public const int LIFE_STEAL_DAMAGE_AMOUNT = 2;
+    public const int LIFE_STEAL_HEAL_AMOUNT = 12;
+    public const int LIFE_STEAL_DAMAGE_AMOUNT = 4;
     public const float LIFE_STEAL_DAMAGE_INTERVAL = 1.0f;
     float speed = 3;
     float xVelocity = 0;
